@@ -415,6 +415,26 @@ export function GmailCredentialsModal({
     </Dialog>
   )
 }
+
+export function GmailCredentialsSetupModal({
+  isOpen,
+  onClose,
+  onSave,
+  existingCredentials
+}: GmailCredentialsModalProps) {
+  const [step, setStep] = useState<'setup' | 'oauth' | 'tokens' | 'test'>('setup')
+  const [credentials, setCredentials] = useState<Partial<GmailCredentials>>({
+    name: '',
+    email: '',
+    accessToken: '',
+    refreshToken: '',
+    clientId: '',
+    clientSecret: ''
+  })
+  const [authUrl, setAuthUrl] = useState('')
+  const [authCode, setAuthCode] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
   const [testResult, setTestResult] = useState<any>(null)
 
   useEffect(() => {
